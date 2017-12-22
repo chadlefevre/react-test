@@ -20,37 +20,53 @@ function Square(props) {
         />
       );
     }
-  
+
+    renderColHeader() {
+        return (
+          <div className="board-col-header">
+              <label className="boardLabel"></label>
+              <label className="boardLabel">C1</label>
+              <label className="boardLabel">C2</label>
+              <label className="boardLabel">C3</label>
+          </div>
+        );
+    }
+
+    renderRow(i) {
+        var row = [];
+        for(let j=0; j<3;j++) { //rows
+            row.push(this.renderSquare(3*i+j));
+        }
+        return (
+          <div>
+          <label className="boardLabel">R{i+1}</label>
+          {row}
+          </div>
+        );
+    }
+
+    renderBody() {
+        var col = [];
+        for(let i=0;i<3;i++)
+        {
+            col.push(this.renderRow(i));
+        }
+        return (
+            <div>{col}</div>
+        );
+    }
+
+
     render() {
       return (
         <div>
-          <div className="board-col-header">
-            <label className="boardLabel"></label>
-            <label className="boardLabel">C1</label>
-            <label className="boardLabel">C2</label>
-            <label className="boardLabel">C3</label>
-          </div>
-          <div className="board-row">
-            <label className="boardLabel">R1</label>
-            {this.renderSquare(0)}
-            {this.renderSquare(1)}
-            {this.renderSquare(2)}
-          </div>
-          <div className="board-row">
-            <label className="boardLabel">R2</label>
-            {this.renderSquare(3)}
-            {this.renderSquare(4)}
-            {this.renderSquare(5)}
-          </div>
-          <div className="board-row">
-            <label className="boardLabel">R3</label>
-            {this.renderSquare(6)}
-            {this.renderSquare(7)}
-            {this.renderSquare(8)}
-          </div>
+            {this.renderColHeader()}
+            {this.renderBody()}
         </div>
-      );
+
+        );
     }
+    
   }
   
   class Game extends React.Component {
