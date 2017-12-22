@@ -24,17 +24,26 @@ function Square(props) {
     render() {
       return (
         <div>
+          <div className="board-col-header">
+            <label className="boardLabel"></label>
+            <label className="boardLabel">C1</label>
+            <label className="boardLabel">C2</label>
+            <label className="boardLabel">C3</label>
+          </div>
           <div className="board-row">
+            <label className="boardLabel">R1</label>
             {this.renderSquare(0)}
             {this.renderSquare(1)}
             {this.renderSquare(2)}
           </div>
           <div className="board-row">
+            <label className="boardLabel">R2</label>
             {this.renderSquare(3)}
             {this.renderSquare(4)}
             {this.renderSquare(5)}
           </div>
           <div className="board-row">
+            <label className="boardLabel">R3</label>
             {this.renderSquare(6)}
             {this.renderSquare(7)}
             {this.renderSquare(8)}
@@ -49,7 +58,8 @@ function Square(props) {
           super(props);
           this.state = {
             history: [{
-                squares: Array(9).fill(null),
+                squares: Array(9).fill(null), 
+                moveIndex: null,
             }],
             stepNumber: 0,
             xIsNext: true,
@@ -67,6 +77,7 @@ function Square(props) {
         this.setState({
             history: history.concat([{
                 squares: squares,
+                moveIndex: i,
             }]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext,
@@ -81,13 +92,14 @@ function Square(props) {
     }
 
     render() {
-        const history = this.state.history;
+        const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[this.state.stepNumber];
+        //const label = history
         const winner = calculateWinner(current.squares);
 
         const moves = history.map((step, move) => {
             const desc = move?
-                'Go to move #' + move:
+                'Go to move #' + move + " (C" + ((history[move].moveIndex%3)+1) + ", R" + (Math.floor(history[move].moveIndex/3)+1) +")":
                 'Go to game start';
             return (
                 <li key={move}>

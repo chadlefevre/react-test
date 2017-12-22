@@ -12,6 +12,12 @@ body {
     content: "";
     display: table;
   }
+
+  .board-col-header:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
   
   .status {
     margin-bottom: 10px;
@@ -32,6 +38,20 @@ body {
     width: 34px;
   }
   
+  .boardLabel {
+    background: #fff;
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 34px;
+    height: 34px;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
+    width: 34px;
+  }
+
   .square:focus {
     outline: none;
   }
