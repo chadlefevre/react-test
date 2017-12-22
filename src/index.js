@@ -101,17 +101,20 @@ function Square(props) {
             const desc = move?
                 'Go to move #' + move + " (C" + ((history[move].moveIndex%3)+1) + ", R" + (Math.floor(history[move].moveIndex/3)+1) +")":
                 'Go to game start';
+            const labelStyle = (this.state.stepNumber === move)?{fontWeight: 'bold'}:{};
             return (
                 <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}> {desc} </button>
+                    <button style={labelStyle} onClick={() => this.jumpTo(move)}> {desc} </button>
                 </li>
             );
         });
 
-        let status;
+        let status, statusFormat;
         if (winner) {
+            statusFormat = { fontWeight: 'bold', fontSize: '24px'};
             status = 'Winner: ' + winner;
         } else {
+            statusFormat = {};
             status = 'Next player: ' + (this.state.xIsNext?'X':'O');
         }
 
@@ -124,7 +127,7 @@ function Square(props) {
             />
           </div>
           <div className="game-info">
-            <div>{status}</div>
+            <div style={statusFormat}>{status}</div>
             <ol>{moves}</ol>
           </div>
         </div>
